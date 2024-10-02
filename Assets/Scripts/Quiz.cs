@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Quiz : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] TextMeshProUGUI questionText;
+    [SerializeField] QuestionSO question;
+    [SerializeField] GameObject[] answerButtons;
+    
     void Start()
     {
-        
+        questionText.text = question.GetQuestion();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
