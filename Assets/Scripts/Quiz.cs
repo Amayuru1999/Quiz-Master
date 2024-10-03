@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
@@ -25,9 +26,20 @@ public class Quiz : MonoBehaviour
     
     void Start()    
     {
-        
-        DisplayQuestion();
+        timer = FindObjectOfType<Timer>();
+        GetNextQuestion();
+        // DisplayQuestion();
        
+    }
+
+    void Update()
+    {
+        timerImage.fillAmount = timer.fillFraction;
+        if (timer.loadNextQuestion)
+        {
+            GetNextQuestion();
+            timer.loadNextQuestion = false;
+        }
     }
 
     public void OnAnswerSelected(int index)
@@ -49,6 +61,7 @@ public class Quiz : MonoBehaviour
             buttonImage.sprite = correctAnswerSprite;
         }
         SetButtonState(false);
+        timer.CancelTimer();
     }
 
     void GetNextQuestion()
