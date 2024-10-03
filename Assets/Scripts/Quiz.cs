@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Quiz : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questionText;
     [SerializeField] QuestionSO question;
     [SerializeField] GameObject[] answerButtons;
+    int correctAnswerIndex;
+    [SerializeField] Sprite defaultAnswerSprite;
+    [SerializeField] Sprite correctAnswerSprite;
     
-    void Start()
+    void Start()    
     {
         questionText.text = question.GetQuestion();
         
@@ -22,5 +27,13 @@ public class Quiz : MonoBehaviour
        
     }
 
+    public void OnAnswerSelected(int index)
+    {
+        if (index == question.GetCorrectAnswerIndex())
+        {
+            questionText.text = "Correct!";
+            Image buttonImage = answerButtons[index].GetComponent<Image>();
+        }
+    }
     
 }
