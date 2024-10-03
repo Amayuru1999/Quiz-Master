@@ -5,6 +5,7 @@ using System.Net.Mime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Quiz : MonoBehaviour
 {
@@ -88,7 +89,9 @@ public class Quiz : MonoBehaviour
     
     void GetRandomQuestion()
     {
-        
+        int index = Random.Range(0, questions.Count);
+        currentQuestion = questions[index];
+        questions.Remove(currentQuestion);
     }
     void DisplayQuestion()
     {
