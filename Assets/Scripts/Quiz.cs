@@ -30,8 +30,6 @@ public class Quiz : MonoBehaviour
     void Start()    
     {
         timer = FindObjectOfType<Timer>();
-        GetNextQuestion();
-        // DisplayQuestion();
        
     }
 
@@ -73,7 +71,7 @@ public class Quiz : MonoBehaviour
         {
             correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
             string correctAnswer = currentQuestion.GetAnswer(correctAnswerIndex);
-            questionText.text = "Sorry, the correct answer was; \n" + correctAnswer;
+            questionText.text = "😥 Sorry, the correct answer was \n" + correctAnswer;
             buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
         }
@@ -81,17 +79,26 @@ public class Quiz : MonoBehaviour
 
     void GetNextQuestion()
     {
-        SetButtonState(true);
-        SetDefaultButtonSprites();
-        GetRandomQuestion();
-        DisplayQuestion();
+        if (questions.Count > 0)
+        {
+            SetButtonState(true);
+            SetDefaultButtonSprites();
+            GetRandomQuestion();
+            DisplayQuestion();
+        }
+        
     }
     
     void GetRandomQuestion()
     {
         int index = Random.Range(0, questions.Count);
         currentQuestion = questions[index];
-        questions.Remove(currentQuestion);
+
+        if (questions.Contains(currentQuestion))
+        {
+            questions.Remove(currentQuestion);
+        }
+        
     }
     void DisplayQuestion()
     {
